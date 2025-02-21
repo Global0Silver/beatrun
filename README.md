@@ -1,11 +1,12 @@
-# Beatrun | Community Edition
+# Beatrun | Community Edition +-
 
-[![Powered by Electricity](https://forthebadge.com/images/featured/featured-powered-by-electricity.svg)](https://forthebadge.com)
-[![Powered by Black Magic](https://forthebadge.com/images/badges/powered-by-black-magic.svg)](https://forthebadge.com)
+![Notepad++](https://img.shields.io/badge/Notepad++-90E59A.svg?style=for-the-badge&logo=notepad%2b%2b&logoColor=black)
+[![forthebadge](https://forthebadge.com/images/badges/you-didnt-ask-for-this.svg)](https://forthebadge.com)
 
 [**Join our Discord Community!**](https://discord.gg/93Psubbgsg)
 
-> *[Русский | Russian](./README.ru.md)*
+This is a personal fork if u want a stable release go to https://github.com/JonnyBro/beatrun
+
 
 ---
 
@@ -17,6 +18,7 @@
 
 ### Whoever else that claims to have an "official" repository and does not have a license other than WTFPL is NOT to be trusted. This project is not something legal, so licenses DO NOT apply under any circumstances. This repository is the original one and is maintained by the original people that cracked beatrun
 
+### This is a personal fork dont expect it to be updated or maintened 
 ---
 
 ## About
@@ -31,23 +33,7 @@ It includes various improvements, new features, and enhanced functionality.
 > - Modules are located **[here](https://github.com/JonnyBro/beatrun/tree/main/lua/bin)**.
 > - Refer to the **[Credits](#credits)** section for their source code.
 
----
 
-## Installation
-
-### 🔧 Automatic Installation (Recommended for Windows 10/11)
-
-> [!NOTE]
-> Windows 7 and old versions of Windows 10 are not supported. Please update your OS.
-
-Run the following command in PowerShell (Run as Administrator if Steam and/or the game is installed on the system (C:) drive):
-
-```powershell
-irm https://beatrun.jonnybro.ru/install | iex
-```
-
-1. Start the game.
-2. Select the `Beatrun` gamemode in the bottom-right corner.
 
 ### 🛠️ Manual Installation
 
@@ -97,14 +83,7 @@ irm https://beatrun.jonnybro.ru/install | iex
 - Enabled jumping while walking.
 - Grapples now follow moving entities and are visible to other players.
 
----
-
-## Animations
-
-The animations installer has been removed. You can now switch animations directly in the **Tools menu** under the Beatrun category.
-
----
-
+--
 ## Known Issues
 
 - See the full list of issues **[here](https://github.com/JonnyBro/beatrun/issues)**.
