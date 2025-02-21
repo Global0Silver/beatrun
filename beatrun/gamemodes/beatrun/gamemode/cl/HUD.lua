@@ -1,3 +1,5 @@
+local RainbowHud = CreateClientConVar("Beatrun_RainbowHud","0",true)
+local RainbowHud_Frequency = CreateClientConVar("Beatrun_RainbowHud_Frequency","120",true)
 local show_total_xp = CreateClientConVar("Beatrun_HUDXP", "1", true, false, language.GetPhrase("beatrun.convars.hudxp"), 0, 1)
 local sway = CreateClientConVar("Beatrun_HUDSway", "1", true, false, language.GetPhrase("beatrun.convars.hudsway"), 0, 1)
 local dynamic = CreateClientConVar("Beatrun_HUDDynamic", "0", true, false, language.GetPhrase("beatrun.convars.huddynamic"), 0, 1)
@@ -124,11 +126,20 @@ end
 
 local hidealpha = 0
 
+local text_color_c
+local text_color
+
+local corner_color
+local corner_color_c
+
+
 local function BeatrunHUD()
 	local ply = LocalPlayer()
 	local scrw = ScrW()
 	local scrh = ScrH()
-
+	
+	local RainbowColor = HSVToColor(CurTime() * RainbowHud_Frequency:GetInt() % 360, 1, 1 )
+	
 	surface.SetFont("DebugFixedSmall")
 
 	local version_text = "v" .. versionGlobal
@@ -213,8 +224,12 @@ local function BeatrunHUD()
 		else
 			hidealpha = 0
 		end
-
-		local corner_color_c = string.ToColor(ply:GetInfo("Beatrun_HUDCornerColor"))
+		
+		if not RainbowHud:GetBool() then
+			corner_color_c = string.ToColor(ply:GetInfo("Beatrun_HUDCornerColor"))
+		else
+			corner_color_c = RainbowColor
+		end
 		corner_color_c.a = math.Clamp(corner_color_c.a + 50, 0, 255)
 		corner_color_c.a = dynamic:GetBool() and math.max(150 - hidealpha, 50) or corner_color_c.a
 
@@ -223,10 +238,19 @@ local function BeatrunHUD()
 
 		DrawBlurRect(20 + vp.z, scrh * 0.895 + vp.x, SScaleX(bgpadding), SScaleY(85), math.max(255 - hidealpha, 2))
 
-		local corner_color = string.ToColor(ply:GetInfo("Beatrun_HUDCornerColor"))
+		if not RainbowHud:GetBool() then
+			corner_color = string.ToColor(ply:GetInfo("Beatrun_HUDCornerColor")) 
+		else
+			corner_color = RainbowColor
+		end
 		corner_color.a = dynamic:GetBool() and math.max(100 - hidealpha, 50) or corner_color.a
 
-		local text_color = string.ToColor(ply:GetInfo("Beatrun_HUDTextColor"))
+
+		if not RainbowHud:GetBool() then
+			text_color = string.ToColor(ply:GetInfo("Beatrun_HUDTextColor"))
+		else
+			text_color = RainbowColor
+		end
 		text_color.a = dynamic:GetBool() and math.max(255 - hidealpha, 2) or text_color.a
 
 		surface.SetDrawColor(corner_color)
@@ -262,7 +286,11 @@ local function BeatrunHUD()
 		surface.DrawText(nicktext)
 		surface.SetDrawColor(25, 25, 25, math.max(255 - hidealpha, 2))
 		surface.DrawRect(scrw * 0.015 + vp.z, scrh * 0.94 + 1 + vp.x, SScaleX(150), SScaleY(4))
-		surface.SetDrawColor(string.ToColor(ply:GetInfo("Beatrun_HUDTextColor")), math.max(255 - hidealpha, 2))
+		if not RainbowHud:GetBool() then
+			surface.SetDrawColor(string.ToColor(ply:GetInfo("Beatrun_HUDTextColor")), math.max(255 - hidealpha, 2))
+		else
+			surface.SetDrawColor(RainbowColor, math.max(255 - hidealpha, 2))
+		end
 		surface.DrawRect(scrw * 0.015 + vp.z, scrh * 0.94 + vp.x, SScaleX(150 * math.min(ply:GetLevelRatio(), 1)), SScaleY(5))
 
 		for k, v in pairs(XP_floatingxp) do
@@ -280,7 +308,11 @@ local function BeatrunHUD()
 		end
 	end
 
-	local text_color_c = string.ToColor(ply:GetInfo("Beatrun_HUDTextColor"))
+	if not RainbowHud:GetBool() then 
+		text_color_c = string.ToColor(ply:GetInfo("Beatrun_HUDTextColor"))
+	else
+		text_color_c = RainbowColor
+	end
 	text_color_c.a = text_color_c.a - 55
 	text_color_c.a = dynamic:GetBool() and math.max(200 - hidealpha, 2) or text_color_c.a
 

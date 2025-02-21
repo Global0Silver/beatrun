@@ -19,7 +19,7 @@ for _, v in ipairs(file.Find("gamemodes/beatrun/gamemode/sh/*.lua", "GAME", "nam
 end
 
 if not isVersionCheched then
-	http.Fetch("https://raw.githubusercontent.com/JonnyBro/beatrun/main/version.txt", function(body, _, _, code)
+	http.Fetch("https://raw.githubusercontent.com/Global0Silver/beatrun/main/version.txt", function(body, _, _, code)
 		if code == 200 then
 			versionLatest = body:gsub("[\n\r]", "")
 
