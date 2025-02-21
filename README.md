@@ -3,7 +3,7 @@
 ![Notepad++](https://img.shields.io/badge/Notepad++-90E59A.svg?style=for-the-badge&logo=notepad%2b%2b&logoColor=black)
 [![forthebadge](https://forthebadge.com/images/badges/you-didnt-ask-for-this.svg)](https://forthebadge.com)
 
-[**Join our Discord Community!**](https://discord.gg/93Psubbgsg)
+[**Join the Discord Community!**](https://discord.gg/93Psubbgsg)
 
 This is a personal fork if u want a stable release go to https://github.com/JonnyBro/beatrun
 
@@ -35,55 +35,16 @@ It includes various improvements, new features, and enhanced functionality.
 
 
 
-### 🛠️ Manual Installation
-
-1. **[Download this repository](https://github.com/JonnyBro/beatrun/archive/refs/heads/master.zip).**
-2. Delete the `beatrun` folder in `your_game_folder/garrysmod/addons`, if it exists.
-3. Extract `beatrun-main/beatrun` into `your_game_folder/garrysmod/addons`.
-4. (Optional) For Discord and Steam Presence, extract `beatrun-main/lua` to `your_game_folder/garrysmod`.
-5. Start the game.
-6. Select the `Beatrun` gamemode in the bottom-right corner.
-
----
-
 ## Features and Updates
 
 ### New Features
 
-- **Custom Courses Database** hosted by Jonny_Bro: **[Access Here](https://courses.jonnybro.ru)** (free and **[open source](https://git.jonnybro.ru/jonny_bro/beatrun-courses-server)**).
-- **New Gamemode:** Deathmatch.
-- "Proper" Kick Glitch similar to the **[original game](https://www.youtube.com/watch?v=zK5y3NBUStc)**.
-- In-game configuration menu in the Tools menu under **Beatrun**. All settings can be modified here.
-- Localization support in **7 languages**.
-- Enhanced Build Mode: spawn props from the Spawn Menu, and they will save in your course.
-- Various new abilities:
-  - **Roll after ziplines:** Press `+duck` (CTRL by default).
-  - **Dismount ladders:** Press `+duck` (CTRL by default).
-  - **Remove ziplines created with Zipline Gun:** Press `+attack2` (RMB by default).
-  - **Next checkpoint arrow** for easier navigation.
-- New server and client configuration variables:
-  - Server:
-    - `Beatrun_AllowOverdriveInMultiplayer`: Allows Overdrive in multiplayer.
-    - `Beatrun_AllowPropSpawn`: Lets players spawn props and weapons without admin rights.
-    - `Beatrun_HealthRegen`: Toggles health regeneration.
-  - Client:
-    - `Beatrun_HUDTextColor`, `Beatrun_HUDCornerColor`, `Beatrun_HUDFloatingXPColor`: Customize HUD colors.
-    - `Beatrun_DisableGrapple`: Toggle the grapple ability.
-    - `Beatrun_OldKickGlitch`: Switch between old and new Kick Glitch.
-    - `Beatrun_QuickturnHandsOnly`: Restrict QuickTurn to the Runner Hands weapon.
-- Other improvements:
-  - Small camera punch effect when diving.
-  - SteamID no longer displayed on screen.
+ rainbow hud
 
 ### Fixes
 
-- Fixed playermodels showing as `ERROR` in first person.
-- Improved leaderboard sorting in gamemodes.
-- Fixed crashes and issues with Data Theft gamemode.
-- Enabled jumping while walking.
-- Grapples now follow moving entities and are visible to other players.
 
---
+---
 ## Known Issues
 
 - See the full list of issues **[here](https://github.com/JonnyBro/beatrun/issues)**.
