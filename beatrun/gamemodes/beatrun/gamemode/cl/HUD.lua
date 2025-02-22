@@ -11,6 +11,8 @@ CreateClientConVar("Beatrun_HUDTextColor", "255 255 255 255", true, true, langua
 CreateClientConVar("Beatrun_HUDCornerColor", "20 20 20 100", true, true, language.GetPhrase("beatrun.convars.hudcornercolor"))
 CreateClientConVar("Beatrun_HUDFloatingXPColor", "255 255 255 255", true, true, language.GetPhrase("beatrun.convars.hudfloatxpcolor"))
 
+local Anonymize = CreateClientConVar("Beatrun_Anonymize","0",true)
+
 local packetloss = Material("vgui/packetloss.png")
 local lastloss = 0
 local MELogo = Material("vgui/MELogo.png", "mips smooth")
@@ -195,13 +197,15 @@ local function BeatrunHUD()
 	coursename = customname and customname or Course_Name ~= "" and language.GetPhrase("beatrun.hud.course"):format(Course_Name) or "#beatrun.hud.freeplay"
 	-- local lastxp = ply.LastXP or 0
 	local nicktext = nil
-
-	if show_total_xp:GetBool() then
-		nicktext = ply:Nick() .. " | " .. ply:GetXP() .. "XP"
+	if not Anonymize:GetBool() then
+		if show_total_xp:GetBool() then
+			nicktext = ply:Nick() .. " | " .. ply:GetXP() .. "XP"
+		else
+			nicktext = ply:Nick()
+		end
 	else
-		nicktext = ply:Nick()
+		nicktext = ""
 	end
-
 	surface.SetFont("BeatrunHUDSmall")
 
 	local nickw, nickh = surface.GetTextSize(nicktext)
@@ -258,8 +262,11 @@ local function BeatrunHUD()
 		surface.SetFont("BeatrunHUD")
 		surface.SetTextColor(text_color)
 		surface.SetTextPos(scrw * 0.015 + vp.z, scrh * 0.9 + vp.x)
-		surface.DrawText(language.GetPhrase("beatrun.hud.lvl"):format(ply:GetLevel()))
-
+		if Anonymize:GetBool() then
+			surface.DrawText(language.GetPhrase("beatrun.hud.lvl"):format("∞"))
+		else
+			surface.DrawText(language.GetPhrase("beatrun.hud.lvl"):format(ply:GetLevel()))
+		end
 		if verificationstats:GetBool() then
 			surface.SetTextPos(scrw * 0.015 + vp.z, scrh * 0.02 + vp.x)
 			surface.DrawText("Purist: ")
@@ -291,8 +298,11 @@ local function BeatrunHUD()
 		else
 			surface.SetDrawColor(RainbowColor, math.max(255 - hidealpha, 2))
 		end
-		surface.DrawRect(scrw * 0.015 + vp.z, scrh * 0.94 + vp.x, SScaleX(150 * math.min(ply:GetLevelRatio(), 1)), SScaleY(5))
-
+		if Anonymize:GetBool() then
+			surface.DrawRect(scrw * 0.015 + vp.z, scrh * 0.94 + vp.x, SScaleX(150 * math.min(1, 1)), SScaleY(5))
+		else
+			surface.DrawRect(scrw * 0.015 + vp.z, scrh * 0.94 + vp.x, SScaleX(150 * math.min(ply:GetLevelRatio(), 1)), SScaleY(5))
+		end
 		for k, v in pairs(XP_floatingxp) do
 			local floating_color = string.ToColor(ply:GetInfo("Beatrun_HUDFloatingXPColor"))
 			floating_color.a = math.Clamp(1000 * math.abs(CurTime() - k) / 5 - hidealpha, 0, 255)
@@ -446,7 +456,11 @@ function BeatrunLeaderboard(forced)
 			end
 
 			surface.SetTextPos(30 + vp.z, scrh * 0.2 + vp.x + 25 * k)
-			surface.DrawText(k .. ". " .. v:Nick():Left(14))
+			if v:Nick() == ply:Nick() and Anonymize:GetBool() then
+				surface.DrawText(k .. ". " .. string.Left("", 14))
+			else
+				surface.DrawText(k .. ". " .. v:Nick():Left(14))
+			end
 			surface.SetTextPos(SScaleX(220 + vp.z), scrh * 0.2 + vp.x + 25 * k)
 
 			if isinfection and pbtimenum == 0 and v:GetNW2Bool("Infected") then
