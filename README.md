@@ -14,8 +14,6 @@ This is a personal fork if u want a stable release go to https://github.com/Jonn
 
 ### Please read this README thoroughly before asking questions
 
-### Whoever else that claims to have an "official" repository and does not have a license other than WTFPL is NOT to be trusted. This project is not something legal, so licenses DO NOT apply under any circumstances.
-
 ### This is a personal fork dont expect it to be updated or maintened 
 ---
 
@@ -24,13 +22,6 @@ This is a personal fork if u want a stable release go to https://github.com/Jonn
 Beatrun is an **infamous parkour addon for Garry's Mod**, now fully open-sourced and maintained by the community.
 It includes various improvements, new features, and enhanced functionality.
 
-> [!WARNING]
-> **This repository contains no malicious modules.** However, optional modules such as Discord Rich Presence and Steam Presence are available for additional features.
-> These are **completely optional** and can be removed at any time.
->
-> - Modules are located **[here](https://github.com/JonnyBro/beatrun/tree/main/lua/bin)**.
-> - Refer to the **[Credits](#credits)** section for their source code.
-
 
 
 ## Features and Updates
@@ -38,7 +29,10 @@ It includes various improvements, new features, and enhanced functionality.
 ### New Features
 
  rainbow hud option
+ 
  Spawn with tools option
+
+ Beatrun_anonymize (for fun ¯\\\_(ツ)_/¯ )
 
 ### Fixes
 
