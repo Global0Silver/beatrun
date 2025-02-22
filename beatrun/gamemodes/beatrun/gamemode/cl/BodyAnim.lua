@@ -485,7 +485,7 @@ local lastlockang = false
 local lastlockangstart = Angle()
 local lasteyeang = Angle()
 local updatethirdperson = true
-
+local thirdperson = CreateClientConVar("Beatrun_thirdperson", "0", true, true)
 function BodyAnimCalcView2(ply, pos, angles, fov)
 	if ply:InVehicle() then
 		RemoveBodyAnim()
@@ -500,7 +500,7 @@ function BodyAnimCalcView2(ply, pos, angles, fov)
 		return
 	end
 
-	if IsValid(BodyAnim) and pos:Distance(ply:EyePos()) > 20 then
+	if IsValid(BodyAnim) and pos:Distance(ply:EyePos()) > 20 and not thirdperson:GetBool() then
 		if updatethirdperson then
 			ply:SetNoDraw(false)
 			BodyAnim:SetNoDraw(true)
