@@ -39,7 +39,8 @@ It includes various improvements, new features, and enhanced functionality.
 
 ### New Features
 
- rainbow hud
+ rainbow hud option
+ Spawn with tools option
 
 ### Fixes
 
