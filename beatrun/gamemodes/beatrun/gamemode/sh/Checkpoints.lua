@@ -13,11 +13,11 @@ local pbtotal = 0
 local color_positive = Color(0, 255, 0, 255)
 local color_negative = Color(255, 0, 0, 255)
 local color_neutral = Color(200, 200, 200, 255)
+local timetext = ""
+local timealpha = 1000
+local timecolor = color_neutral
 
---bruh
-timetext = ""
-timealpha = 1000
-timecolor = color_neutral
+local r, g, b, a
 
 if CLIENT then
 	CreateClientConVar("Beatrun_ShowSpeedometer", 1, true, true, language.GetPhrase("#beatrun.convars.showspeedometer"), 0, 1)
@@ -230,6 +230,128 @@ local function StartCountdownHUD()
 	end
 end
 
+function CourseHUD()
+	local ply = LocalPlayer()
+	local vp = ply:GetViewPunchAngles()
+	local vpx = vp.x
+	local vpz = vp.z
+	local incourse = Course_Name ~= ""
+	local totaltime = CheckpointNumber ~= -1 and math.max(0, CurTime() - Course_StartTime) or Course_EndTime
+
+	if incourse then
+		local text = string.FormattedTime(totaltime, "%02i:%02i:%02i")
+		local w, _ = surface.GetTextSize(text)
+		surface.SetFont("BeatrunHUD")
+		surface.SetTextPos(ScrW() * 0.85 - w * 0.5 + vpx, ScrH() * 0.075 + vpz)
+		surface.DrawText(text)
+	end
+
+	if GetConVar("Beatrun_ShowSpeedometer"):GetBool() and GetConVar("Beatrun_HUDHidden"):GetInt() ~= 2 then
+		local speed = 0
+
+		local mode = GetConVar("Beatrun_SpeedometerMode"):GetInt()
+		if mode == 0 then -- km/h
+			speed = math.Round(ply:GetVelocity():Length() * 0.06858125)
+		elseif mode == 1 then -- mph
+			speed = math.Round(ply:GetVelocity():Length() * 0.11037055)
+		elseif mode == 2 then -- hu/h
+			speed = math.Round(ply:GetVelocity():Length())
+		end
+
+		if speed < 10 then
+			speed = "0" .. speed
+		end
+
+		local text = ""
+
+		if mode == 0 then -- km/h
+			text = language.GetPhrase("beatrun.checkpoints.speedometer"):format(speed)
+		elseif mode == 1 then -- mph
+			text = language.GetPhrase("beatrun.checkpoints.speedometer_miles"):format(speed)
+		elseif mode == 2 then -- hu/h
+			text = language.GetPhrase("beatrun.checkpoints.speedometer_hammerunits"):format(speed)
+		end
+
+		local w, _ = surface.GetTextSize(text)
+		w = w or 0
+		
+		if not RainbowHud:GetBool() then
+			r, g, b, a = string.ToColor(GetConVar("Beatrun_HUDTextColor"):GetString())
+		else
+			r, g, b, a = HSVToColor(CurTime() * RainbowHud_Frequency:GetInt() % 360, 1, 1 )
+		end
+		
+
+		surface.SetDrawColor(255, 255, 255, 255)
+		surface.SetFont("BeatrunHUD")
+		surface.SetTextColor(r, g, b, a)
+		surface.SetTextPos(ScrW() * 0.85 - w * 0.5 + vpx, ScrH() * 0.85 + vpz)
+		surface.DrawText(text)
+
+		if GetConVar("Beatrun_HUDStats"):GetBool() then
+			local ang1 = ply:GetAimVector()
+			ang1 = math.Round(ang1:Angle()[2] % 90, 0)
+			surface.SetTextPos(ScrW() * 0.85 - w * 0.5 + vpx, ScrH() * 0.88 + vpz)
+			surface.DrawText(ang1)
+
+			surface.SetTextPos(ScrW() * 0.87 - w * 0.5 + vpx, ScrH() * 0.88 + vpz)
+			surface.DrawText("Angle")
+
+			surface.SetTextPos(ScrW() * 0.85 - w * 0.5 + vpx, ScrH() * 0.90 + vpz)
+			surface.DrawText(ply:GetWallrun())
+			surface.SetTextPos(ScrW() * 0.87 - w * 0.5 + vpx, ScrH() * 0.90 + vpz)
+			surface.DrawText("Wall stat")
+
+			if ply:UsingRH() then
+				surface.SetTextPos(ScrW() * 0.85 - w * 0.5 + vpx, ScrH() * 0.92 + vpz)
+				surface.DrawText(tostring(ply:GetActiveWeapon():GetQuakeJumping()))
+				surface.SetTextPos(ScrW() * 0.89 - w * 0.5 + vpx, ScrH() * 0.92 + vpz)
+				surface.DrawText("Quake")
+			end
+
+			surface.SetTextPos(ScrW() * 0.85 - w * 0.5 + vpx, ScrH() * 0.94 + vpz)
+			if (ply:GetWallrunTime() - CurTime()) < 0 then
+				surface.DrawText("0.00")
+			else
+				surface.DrawText(tostring(math.Round(ply:GetWallrunTime() - CurTime(), 2)))
+			end
+
+			surface.SetTextPos(ScrW() * 0.89 - w * 0.5 + vpx, ScrH() * 0.94 + vpz)
+			surface.DrawText("Wallrun Time Remains")
+
+			surface.SetTextPos(ScrW() * 0.85 - w * 0.5 + vpx, ScrH() * 0.96 + vpz)
+			surface.DrawText(tostring(CurTime() < ply:GetWallrunTime()))
+
+			surface.SetTextPos(ScrW() * 0.89 - w * 0.5 + vpx, ScrH() * 0.96 + vpz)
+			surface.DrawText("Wallrunning")
+		end
+	end
+
+	if incourse and pbtimes then
+		local text = string.FormattedTime(pbtotal, "%02i:%02i:%02i")
+		local w, h = surface.GetTextSize(text)
+
+		surface.SetFont("BeatrunHUD")
+		surface.SetTextPos(ScrW() * 0.85 - w * 0.5 + vpx, ScrH() * 0.075 + h + vpz)
+		surface.SetTextColor(255, 255, 255, 125)
+		surface.DrawText(text)
+	end
+
+	if timealpha > 0 then
+		local w, _ = surface.GetTextSize(timetext)
+		w = w or 0
+
+		timealpha = math.max(0, timealpha - FrameTime() * 250)
+		timecolor.a = math.min(255, timealpha)
+
+		surface.SetFont("BeatrunHUD")
+		surface.SetTextPos(ScrW() * 0.5 - w * 0.5 + vpx, ScrH() * 0.3 + vpz)
+		surface.SetTextColor(timecolor)
+		surface.DrawText(timetext)
+	end
+end
+
+hook.Add("HUDPaint", "CourseHUD", CourseHUD)
 
 local function StartFreeze(ply, cmd)
 	cmd:ClearButtons()
