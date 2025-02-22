@@ -16,7 +16,7 @@ This is a personal fork if u want a stable release go to https://github.com/Jonn
 
 ### The **only official source** for this fork is this GitHub repository. Workshop versions are outdated and unsupported
 
-### Whoever else that claims to have an "official" repository and does not have a license other than WTFPL is NOT to be trusted. This project is not something legal, so licenses DO NOT apply under any circumstances. This repository is the original one and is maintained by the original people that cracked beatrun
+### Whoever else that claims to have an "official" repository and does not have a license other than WTFPL is NOT to be trusted. This project is not something legal, so licenses DO NOT apply under any circumstances.
 
 ### This is a personal fork dont expect it to be updated or maintened 
 ---
