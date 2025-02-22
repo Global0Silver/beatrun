@@ -180,6 +180,10 @@ hook.Add("PopulateToolMenu", "Beatrun_ToolMenu", function()
 		panel:NumSlider("#beatrun.toolsmenu.hud.hidden", "Beatrun_HUDHidden", 0, 2, 0)
 		panel:ControlHelp(language.GetPhrase("beatrun.toolsmenu.hud.hiddendesc"))
 
+		panel:CheckBox("Rainbow hud", "Beatrun_RainbowHud")
+		panel:NumSlider("Rainbow hud frequency", "Beatrun_RainbowHud_Frequency", 0, 1000, 0)
+		panel:ControlHelp("Changes how fast colors Change")
+	
 		local divider = vgui.Create("DHorizontalDivider")
 		panel:AddItem(divider)
 
@@ -440,5 +444,8 @@ hook.Add("PopulateToolMenu", "Beatrun_ToolMenu", function()
 
 		panel:CheckBox("#beatrun.toolsmenu.extra.speedrunsverif", "Beatrun_HUDVerification")
 		panel:ControlHelp("#beatrun.toolsmenu.extra.speedrunsverifdesc")
+		
+		
+		panel:CheckBox("Spawn with tools", "Beatrun_SpawnWithTools")
 	end)
 end)
