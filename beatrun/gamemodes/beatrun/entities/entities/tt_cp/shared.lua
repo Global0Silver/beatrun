@@ -40,7 +40,7 @@ end
 local screencolor = Color(64, 0, 0, 64)
 
 function ENT:StartTouch(ent)
-	if ent:IsPlayer() and Course_Name ~= "" and not ent.BuildMode and ent:GetNW2Int("CPNum", 1) == self:GetCPNum() then
+	if ent:IsPlayer() and Course_Name ~= "" and not ent.BuildMode and ent:GetNW2Int("CPNum", 1) == self:GetCPNum() and ent:GetVelocity().z > -800 then
 		ent:SetNW2Int("CPNum", ent:GetNW2Int("CPNum", 1) + 1)
 
 		if ent:GetNW2Int("CPNum", 1) > table.Count(Checkpoints) then

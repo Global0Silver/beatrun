@@ -445,7 +445,12 @@ hook.Add("PopulateToolMenu", "Beatrun_ToolMenu", function()
 		panel:CheckBox("#beatrun.toolsmenu.extra.speedrunsverif", "Beatrun_HUDVerification")
 		panel:ControlHelp("#beatrun.toolsmenu.extra.speedrunsverifdesc")
 		
+		panel:CheckBox("Hide name and level from HUD", "Beatrun_Anonymize")
 		
 		panel:CheckBox("Spawn with tools", "Beatrun_SpawnWithTools")
+		
+		panel:CheckBox('"Thirdperson" anims', "Beatrun_thirdperson")
+		
+		panel:CheckBox("Show mirrors","Beatrun_ShowMirrors")
 	end)
 end)

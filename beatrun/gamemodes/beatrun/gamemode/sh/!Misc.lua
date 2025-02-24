@@ -1,4 +1,5 @@
 local allowPropSpawn = CreateConVar("Beatrun_AllowPropSpawn", "0", {FCVAR_ARCHIVE})
+CreateClientConVar("Beatrun_ShowMirrors", "0", true, false)
 
 if SERVER then
 	util.AddNetworkString("SPParkourEvent")
@@ -120,13 +121,20 @@ if CLIENT and game.SinglePlayer() then
 	end)
 end
 
-if SERVER then
-	hook.Add("OnEntityCreated", "RemoveMirrors", function(ent)
+
+hook.Add("OnEntityCreated", "RemoveMirrors", function(ent) -- mirrors only get hidden if they are rendedered so we call on its creation to hide it
+	if IsValid(ent) and ent:GetClass() == "func_reflective_glass" then
+		ent:SetNoDraw(not GetConVar("Beatrun_ShowMirrors"):GetBool())
+	end
+end)
+
+cvars.AddChangeCallback("Beatrun_ShowMirrors", function()
+	for _, ent in ipairs(ents.GetAll()) do
 		if IsValid(ent) and ent:GetClass() == "func_reflective_glass" then
-			SafeRemoveEntityDelayed(ent, 0.1)
+			ent:SetNoDraw(not GetConVar("Beatrun_ShowMirrors"):GetBool())
 		end
-	end)
-end
+	end
+end )
 
 if CLIENT then
 	local blur = Material("pp/blurscreen")

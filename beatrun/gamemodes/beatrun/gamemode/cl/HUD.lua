@@ -41,7 +41,7 @@ local tab = {
 	["$pp_colour_mulr"] = 0,
 	["$pp_colour_colour"] = color
 }
-
+--[[
 hook.Add("RenderScreenspaceEffects", "BeatrunNoclipBW", function()
 	if render.GetDXLevel() < 90 then return end
 
@@ -65,7 +65,7 @@ hook.Add("RenderScreenspaceEffects", "BeatrunNoclipBW", function()
 		DrawColorModify(tab)
 	end
 end)
-
+--]]
 surface.CreateFont("BeatrunHUD", {
 	shadow = true,
 	blursize = 0,
