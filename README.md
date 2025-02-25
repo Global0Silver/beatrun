@@ -19,12 +19,11 @@ This is a personal fork if u want a stable release go to https://github.com/Jonn
 
 ## About
 
-Beatrun is an **infamous parkour addon for Garry's Mod**, now fully open-sourced and maintained by the community.
-It includes various improvements, new features, and enhanced functionality.
+Beatrun is an **infamous parkour addon for Garry's Mod**, This fork adds some customizability and stuff that i thought would be interesting to implement
 
 
 
-## Features and Updates
+## Features and Updates on this fork
 
 ### New Features
 
@@ -32,21 +31,12 @@ It includes various improvements, new features, and enhanced functionality.
  
  Spawn with tools option
 
- Beatrun_anonymize (for fun ¯\\\_(ツ)_/¯ )
+ Hide name and lvl from hud
+
+ Toggleable mirrors
 
 ### Fixes
-
-
----
-## Known Issues
-
-- See the full list of issues **[here](https://github.com/JonnyBro/beatrun/issues)**.
-
----
-
-## Related Projects
-
-- **[Beatrun Reanimated Project](https://github.com/JonnyBro/beatrun-anims)**
+ Added velocity check to checkpoint trigger so in some cases you dont softlock
 
 ---
 
