@@ -1,6 +1,7 @@
 local quakejump = CreateConVar("Beatrun_QuakeJump", 1, {FCVAR_REPLICATED, FCVAR_ARCHIVE})
 local sidestep = CreateConVar("Beatrun_SideStep", 1, {FCVAR_REPLICATED, FCVAR_ARCHIVE})
 local speed_limit = CreateConVar("Beatrun_SpeedLimit", 325, {FCVAR_REPLICATED, FCVAR_ARCHIVE})
+local weapon_rh_sprint = CreateClientConVar("Beatrun_WeaponRhSprint", 1, true, true)
 
 local function Hardland(jt)
 	local ply = LocalPlayer()
@@ -256,7 +257,7 @@ hook.Add("SetupMove", "MESetupMove", function(ply, mv, cmd)
 	local weaponspeed = 150
 	local activewep = ply:GetActiveWeapon()
 
-	if not ply:UsingRH() then
+	if not ply:UsingRH() and not weapon_rh_sprint:GetBool() then
 		weaponspeed = speed_limit:GetInt() + math.floor(325 - speed_limit:GetInt())
 	end
 
@@ -375,7 +376,7 @@ if CLIENT then
 			cmd:SetSideMove(cmd:GetSideMove() * 0.01)
 		end
 
-		if (ply:InOverdrive() or ply:UsingRH() and ply:GetMoveType() == MOVETYPE_WALK and not hardland and ply:OnGround()) and not cmd:KeyDown(IN_SPEED) and not ply:GetSliding() and not IsValid(ply:GetBalanceEntity()) then
+		if (ply:InOverdrive() or ply:UsingRH() or (not ply:UsingRH() and weapon_rh_sprint:GetBool()) and ply:GetMoveType() == MOVETYPE_WALK and not hardland and ply:OnGround()) and not cmd:KeyDown(IN_SPEED) and not ply:GetSliding() and not IsValid(ply:GetBalanceEntity()) then
 			cmd:SetButtons(cmd:GetButtons() + IN_SPEED)
 		end
 	end)

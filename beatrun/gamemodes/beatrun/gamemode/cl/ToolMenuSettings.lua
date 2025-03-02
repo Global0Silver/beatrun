@@ -252,6 +252,9 @@ hook.Add("PopulateToolMenu", "Beatrun_ToolMenu", function()
 
 		panel:CheckBox("#beatrun.toolsmenu.gameplay.autohandswitch", "Beatrun_AutoHandSwitching")
 		panel:ControlHelp("#beatrun.toolsmenu.gameplay.autohandswitchdesc")
+		
+		panel:CheckBox("Use Runnerhand's sprint with weapons", "Beatrun_WeaponRhSprint")
+		panel:ControlHelp("Will use the same sprinting system as runnerhands with weapons")
 
 		panel:CheckBox("#beatrun.toolsmenu.gameplay.puristmode", "Beatrun_PuristMode")
 		panel:ControlHelp(language.GetPhrase("beatrun.toolsmenu.gameplay.puristmodedesc"))
