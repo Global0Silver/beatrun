@@ -34,6 +34,8 @@ Beatrun is an **infamous parkour addon for Garry's Mod**, This fork adds some cu
  Hide name and lvl from hud
 
  Toggleable mirrors
+ 
+ Use same sprinting system as Runnerhands with weapons option
 
 ### Fixes
  Added velocity check to checkpoint trigger so in some cases you dont softlock

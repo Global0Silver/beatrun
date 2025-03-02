@@ -1,7 +1,7 @@
 local quakejump = CreateConVar("Beatrun_QuakeJump", 1, {FCVAR_REPLICATED, FCVAR_ARCHIVE})
 local sidestep = CreateConVar("Beatrun_SideStep", 1, {FCVAR_REPLICATED, FCVAR_ARCHIVE})
 local speed_limit = CreateConVar("Beatrun_SpeedLimit", 325, {FCVAR_REPLICATED, FCVAR_ARCHIVE})
-local weapon_rh_sprint = CreateClientConVar("Beatrun_WeaponRhSprint", 1, true, true)
+local weapon_rh_sprint = CreateClientConVar("Beatrun_WeaponRhSprint", 0, true, true)
 
 local function Hardland(jt)
 	local ply = LocalPlayer()
